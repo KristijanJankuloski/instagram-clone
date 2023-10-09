@@ -1,1 +1,123 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+@use './assets/scss/variables' as colors;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$custom-primary: (
+  50: colors.$purple_50,
+  100: colors.$purple_100,
+  200: colors.$purple_200,
+  300: colors.$purple_300,
+  400: colors.$purple_400,
+  500: colors.$purple_500,
+  600: colors.$purple_600,
+  700: colors.$purple_700,
+  800: colors.$purple_800,
+  900: colors.$purple_900,
+  A100: colors.$purple_A100,
+  A200: colors.$purple_A200,
+  A400: colors.$purple_A400,
+  A700: colors.$purple_A700,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$custom-accent: (
+  50: colors.$green_50,
+  100: colors.$green_100,
+  200: colors.$green_200,
+  300: colors.$green_300,
+  400: colors.$green_400,
+  500: colors.$green_500,
+  600: colors.$green_600,
+  700: colors.$green_700,
+  800: colors.$green_800,
+  900: colors.$green_900,
+  A100: colors.$green_A100,
+  A200: colors.$green_A200,
+  A400: colors.$green_A400,
+  A700: colors.$green_A700,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$custom-warn: (
+  50: colors.$red_50,
+  100: colors.$red_100,
+  200: colors.$red_200,
+  300: colors.$red_300,
+  400: colors.$red_400,
+  500: colors.$red_500,
+  600: colors.$red_600,
+  700: colors.$red_700,
+  800: colors.$red_800,
+  900: colors.$red_900,
+  contrast: (
+    50: colors.$black,
+    100: colors.$black,
+    200: colors.$black,
+    300: colors.$black,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$instagram-clone-primary: mat.define-palette($custom-primary);
+$instagram-clone-accent: mat.define-palette($custom-accent, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$instagram-clone-warn: mat.define-palette($custom-warn);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$instagram-clone-theme: mat.define-light-theme((
+  color: (
+    primary: $instagram-clone-primary,
+    accent: $instagram-clone-accent,
+    warn: $instagram-clone-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($instagram-clone-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
