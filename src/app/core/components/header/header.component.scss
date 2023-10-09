@@ -1,8 +1,15 @@
+.brand {
+    margin-right: 16px;
+}
+
 .mobile-menu-button {
     display: none;
 }
 
 @media screen and (max-width: 480px) {
+    .desktop-nav {
+        display: none;
+    }
     .mobile-menu-button {
         display: block;
     }
