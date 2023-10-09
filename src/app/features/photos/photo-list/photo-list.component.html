@@ -1,7 +1,10 @@
 <div class="container">
     <div class="grid-list">
-        <div *ngFor="let photo of tempPhotos" class="grid-tile">
+        <div *ngFor="let photo of listToDisplay" class="grid-tile">
             <app-photo [photo]="photo" />
         </div>
+    </div>
+    <div class="footer">
+        <button mat-raised-button color="primary" (click)="loadMoreItems()">Load more</button>
     </div>
 </div>

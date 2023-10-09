@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { PhotosService } from 'src/app/core/services/photos.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PhotoComponent } from '../photo/photo.component';
+import { PhotoModel } from 'src/app/core/models/photo.model';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-photo-list',
   standalone: true,
-  imports: [CommonModule, PhotoComponent, ScrollingModule],
+  imports: [CommonModule, PhotoComponent, ScrollingModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './photo-list.component.html',
   styleUrls: ['./photo-list.component.scss']
@@ -15,6 +17,7 @@ import { PhotoComponent } from '../photo/photo.component';
 export class PhotoListComponent implements OnInit {
   private photoService = inject(PhotosService);
   photos$ = this.photoService.photos$;
+  listToDisplay:PhotoModel[] = [];
   tempPhotos = [
     {
       "albumId": 1,
@@ -66,11 +69,14 @@ export class PhotoListComponent implements OnInit {
       "thumbnailUrl": "https://via.placeholder.com/150/b0f7cc"
     }]
   ngOnInit(): void {
-    // this.columns = Math.floor(window.innerWidth / 320);
+    this.loadMoreItems();
     // this.photoService.getPhotos();
   }
 
-  onResize(event: any) {
-    // this.columns = Math.floor(event.target.innerWidth / 320);
+  loadMoreItems() {
+    const batchSize = 20;
+    const startIndex = this.listToDisplay.length;
+    const endIndex = startIndex + batchSize;
+    this.listToDisplay = this.tempPhotos.slice(0, endIndex);
   }
 }
