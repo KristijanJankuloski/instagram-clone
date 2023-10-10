@@ -1,5 +1,5 @@
 <mat-card class="photo-card" [routerLink]="['/photos', photo.id]">
-    <img mat-card-image [src]="photo.thumbnailUrl" [alt]="'thumbnail for ' + photo.id" loading="lazy" />
+    <img mat-card-image [src]="photo.thumbnailUrl" [alt]="'thumbnail for ' + photo.id" loading="lazy" width="300px" />
     <mat-card-content>
         <p>
             {{ photo.title }}

@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
-import { PhotoListComponent } from './features/photos/photo-list/photo-list.component';
-import { PhotoDetailsComponent } from './features/photos/photo-details/photo-details.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'photos', component: PhotoListComponent },
-    { path: 'photos/:id', component: PhotoDetailsComponent }
+    { path: 'photos', loadComponent: () => 
+            import('./features/photos/photo-list/photo-list.component')
+            .then(m => m.PhotoListComponent) 
+    },
+    { path: 'photos/:id', loadComponent: () => 
+            import('./features/photos/photo-details/photo-details.component')
+            .then(m => m.PhotoDetailsComponent)
+    }
 ];
