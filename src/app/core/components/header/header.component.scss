@@ -1,9 +1,14 @@
 .brand {
     margin-right: 16px;
+    font-size: 1.6rem;
 }
 
 .mobile-menu-button {
     display: none;
+}
+
+.spacer {
+    flex: 1 1 auto;
 }
 
 @media screen and (max-width: 480px) {

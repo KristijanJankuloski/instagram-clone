@@ -7,14 +7,32 @@ import { PhotoModel } from 'src/app/core/models/photo.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-photo-list',
   standalone: true,
-  imports: [CommonModule, PhotoComponent, ScrollingModule, MatButtonModule, MatPaginatorModule],
+  imports: [CommonModule, PhotoComponent, ScrollingModule, MatButtonModule, MatPaginatorModule, RouterLink],
   templateUrl: './photo-list.component.html',
-  styleUrls: ['./photo-list.component.scss']
+  styleUrls: ['./photo-list.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        opacity: 1
+      })),
+      state('closed', style({
+        opacity: 0
+      })),
+      transition('open => closed', [
+        animate('1s')
+      ]),
+      transition('closed => open', [
+        animate('0.5s')
+      ])
+    ])
+  ]
 })
 export class PhotoListComponent implements OnInit, OnDestroy {
   private photoService = inject(PhotosService);
@@ -51,6 +69,7 @@ export class PhotoListComponent implements OnInit, OnDestroy {
   pageEvent(event: PageEvent){
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.listToDisplay = this.allPhotos.slice((this.pageIndex*this.pageSize), (this.pageIndex*this.pageSize) + this.pageSize);
+    let endIndex = (this.pageIndex*this.pageSize + this.pageSize) >= this.allPhotos.length? this.allPhotos.length - 1 : (this.pageIndex*this.pageSize + this.pageSize);
+    this.listToDisplay = this.allPhotos.slice((this.pageIndex*this.pageSize), endIndex);
   }
 }

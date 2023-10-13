@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PhotoListComponent } from './photo-list.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PhotoListComponent', () => {
   let component: PhotoListComponent;
@@ -8,7 +9,7 @@ describe('PhotoListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [PhotoListComponent]
+      imports: [PhotoListComponent, RouterTestingModule.withRoutes([])]
     });
     fixture = TestBed.createComponent(PhotoListComponent);
     component = fixture.componentInstance;

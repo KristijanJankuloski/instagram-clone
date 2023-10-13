@@ -1,1 +1,31 @@
-<p>photo-details works!</p>
+<div class="container">
+    <div *ngIf="photoDetails$ | async as details; else noPhoto">
+        <mat-card class="card">
+            <img mat-card-image [src]="details.url" />
+            <mat-card-content>
+                <p>{{ details.title }}</p>
+            </mat-card-content>
+            <mat-card-actions class="actions">
+                <button mat-raised-button color="primary" [routerLink]="['/photos']" [queryParams]="{album: details.albumId}">View album</button>
+                <span class="spacer"></span>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item>
+                      <mat-icon>edit</mat-icon>
+                      <span>Edit</span>
+                    </button>
+                    <button mat-menu-item>
+                      <mat-icon color="warn">delete</mat-icon>
+                      <span>Delete</span>
+                    </button>
+                  </mat-menu>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+<ng-template #noPhoto>
+    <h2 *ngIf="!(isLoading$ | async)">No card to show</h2>
+</ng-template>
