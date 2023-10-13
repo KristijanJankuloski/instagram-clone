@@ -13,6 +13,7 @@ export class PhotosService {
   photoDetails$ = new BehaviorSubject<PhotoModel>(null);
 
   getPhotos() {
+    this.photos$.next(null);
     this.photoApiService.getPhotos().subscribe({
       next: value => {
         this.photos$.next(value);
@@ -24,6 +25,7 @@ export class PhotosService {
   }
 
   getPhotoById(photoId: number){
+    this.photoDetails$.next(null);
     this.photoApiService.getPhotoById(photoId).subscribe({
       next: value => {
         this.photoDetails$.next(value);

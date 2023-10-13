@@ -4,15 +4,15 @@
             <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #mobileMenu="matMenu">
-            <a mat-menu-item routerLink="/">Home</a>
-            <a mat-menu-item routerLink="/photos">Photos</a>
+            <a mat-menu-item routerLink="/"><mat-icon>home</mat-icon> Home</a>
+            <a mat-menu-item routerLink="/photos"><mat-icon>camera_alt</mat-icon> Photos</a>
         </mat-menu>
         <div class="brand">
             <h1>Instagram Clone</h1>
         </div>
         <nav class="desktop-nav">
-            <button mat-button routerLink="/">Home</button>
-            <button mat-button routerLink="/photos">Photos</button>
+            <button mat-button routerLink="/"><mat-icon>home</mat-icon> Home</button>
+            <button mat-button routerLink="/photos"><mat-icon>camera_alt</mat-icon> Photos</button>
         </nav>
     </mat-toolbar>
 </header>
