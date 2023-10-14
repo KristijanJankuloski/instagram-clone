@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { snackBarError } from 'src/app/config/snack-bar.config';
 
 @Component({
   selector: 'app-photo-list',
@@ -37,7 +39,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class PhotoListComponent implements OnInit, OnDestroy {
   private photoService = inject(PhotosService);
   private route = inject(ActivatedRoute);
-
+  private snackBar = inject(MatSnackBar)
   photos$ = this.photoService.photos$;
   subscription = new Subscription();
   pageIndex = 0;
@@ -46,17 +48,18 @@ export class PhotoListComponent implements OnInit, OnDestroy {
   listToDisplay:PhotoModel[] = [];
 
   ngOnInit(): void {
-    this.photoService.getPhotos();
+    let albumId = Number.parseInt(this.route.snapshot.queryParams['album']);
+    if(albumId > 0 && !isNaN(albumId)) {
+      this.photoService.getPhotosByAlbumId(albumId);
+    }
+    else {
+      this.photoService.getPhotos();
+    }
     this.subscription = this.photoService.photos$.subscribe({
       next: value => {
         if(!value) return;
-        let albumId = Number.parseInt(this.route.snapshot.queryParams['album']);
-        if(albumId != 0 && !isNaN(albumId)){
-          this.allPhotos = value.filter(v => v.albumId === albumId);
-        }
-        else {
-          this.allPhotos = [...value];
-        }
+
+        this.allPhotos = [...value];
         this.listToDisplay = this.allPhotos.slice((this.pageIndex*this.pageSize), (this.pageIndex*this.pageSize) + this.pageSize);
       }
     });

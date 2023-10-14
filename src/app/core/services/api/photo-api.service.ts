@@ -22,6 +22,12 @@ export class PhotoApiService {
       .pipe(map(value => value as PhotoModel));
   }
 
+  getPhotosByAlbumId(albumId: number){
+    return this.http
+      .get(`${environment.apiBaseUrl}/albums/${albumId}/photos`)
+      .pipe(map(value => value as PhotoModel[]));
+  }
+
   updatePhoto(photo: PhotoModel) {
     return this.http.put(`${environment.apiBaseUrl}/photos/${photo.id}`, photo);
   }

@@ -121,3 +121,19 @@ $instagram-clone-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snack-bar-error.mat-mdc-snack-bar-container {
+  .mdc-snackbar__surface {
+    background: colors.$red_900;
+
+    .mat-mdc-button {
+      color: white !important;
+    }
+  }
+
+  .mat-mdc-snack-bar-label.mdc-snackbar__label {
+    color: white;
+    font-weight: 500;
+    white-space: pre-wrap
+  }
+}
