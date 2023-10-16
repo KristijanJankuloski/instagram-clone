@@ -122,6 +122,18 @@ $instagram-clone-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.full-width {
+  width: 100%;
+}
+
+.photo-card {
+  max-width: 600px;
+
+  @media screen and (max-width: 600px) {
+      max-width: 60%;
+  }
+}
+
 .snack-bar-error.mat-mdc-snack-bar-container {
   .mdc-snackbar__surface {
     background: colors.$red_900;
