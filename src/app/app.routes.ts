@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
 
 export const routes: Routes = [
-        { path: '', component: HomeComponent },
+        { path: 'home', component: HomeComponent },
         { path: 'photos', loadComponent: () => 
                 import('./features/photos/photo-list/photo-list.component')
                 .then(c => c.PhotoListComponent) 
@@ -18,5 +18,7 @@ export const routes: Routes = [
         { path: 'albums', loadComponent: () => 
                 import('./features/albums/albums-list/albums-list.component')
                 .then(c => c.AlbumsListComponent)
-        }
+        },
+
+        { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
