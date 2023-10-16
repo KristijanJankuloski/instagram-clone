@@ -16,8 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./photo-edit.component.scss']
 })
 export class PhotoEditComponent implements OnInit {
-  photoDetails = inject(PhotosService).photoDetails$.value;
+  private photoService = inject(PhotosService);
   route = inject(ActivatedRoute);
+  photoDetails = this.photoService.photoDetails$.value;
   inputForm: FormGroup;
 
   ngOnInit(): void {
@@ -29,5 +30,11 @@ export class PhotoEditComponent implements OnInit {
     this.inputForm = new FormGroup({
       title: new FormControl(this.photoDetails.title, [Validators.required, Validators.minLength(5)])
     });
+  }
+
+  submitEditForm() {
+    if(!this.inputForm.valid) return;
+
+    this.photoService.editPhoto({...this.photoDetails, ...this.inputForm.value});
   }
 }

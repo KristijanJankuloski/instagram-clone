@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingSpinnerService } from '../../services/loading-spinner.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -11,5 +12,5 @@ import { LoadingSpinnerService } from '../../services/loading-spinner.service';
   styleUrls: ['./loading-spinner.component.scss']
 })
 export class LoadingSpinnerComponent {
-  showSpinner$ = inject(LoadingSpinnerService).isLoading$;
+  showLoader$ = inject(Store<{ showLoader: boolean }>).select('loader');
 }
