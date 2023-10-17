@@ -9,11 +9,12 @@ import { Observable, tap } from 'rxjs';
 import { LoadingSpinnerService } from '../services/loading-spinner.service';
 import { Store } from '@ngrx/store';
 import * as actions from '../state/actions/loader.actions';
+import { State } from '../state/app.state';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
   private loadingSpinner = inject(LoadingSpinnerService);
-  private store = inject(Store<{showLoader: boolean}>);
+  private store = inject(Store<State>);
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.store.dispatch(actions.showLoader());
     this.loadingSpinner.showSpinner();

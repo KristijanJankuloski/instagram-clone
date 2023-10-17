@@ -22,7 +22,7 @@ export class PhotosService {
         this.photos$.next(value);
       },
       error: err => {
-        this.snackBar.open(`Error getting items: ${err.status}`, "Dismiss", snackBarError);
+        this.snackBar.open(`Error getting all photos: ${err.status}`, "Dismiss", snackBarError);
       }
     });
   }
@@ -34,7 +34,7 @@ export class PhotosService {
         this.photos$.next(value);
       },
       error: err => {
-        this.snackBar.open(`Error getting items: ${err.status}`, "Dismiss", snackBarError);
+        this.snackBar.open(`Error getting photos: ${err.status}`, "Dismiss", snackBarError);
       }
     });
   }
@@ -46,7 +46,7 @@ export class PhotosService {
         this.photoDetails$.next(value);
       },
       error: err => {
-        this.snackBar.open(`Error getting items: ${err.status}`, "Dismiss", snackBarError);
+        this.snackBar.open(`Error getting photo: ${err.status}`, "Dismiss", snackBarError);
       }
     });
   }

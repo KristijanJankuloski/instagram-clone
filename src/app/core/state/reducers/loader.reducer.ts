@@ -1,8 +1,21 @@
-import { createAction, createReducer, on } from "@ngrx/store";
+import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import * as actions from '../actions/loader.actions';
 
-export const loaderReducer = createReducer(
-    { showLoader: false },
+export interface LoaderState {
+    showLoader: boolean
+}
+
+const getLoaderFeatureState = createFeatureSelector<LoaderState>('loader');
+
+export const getShowLoaderState = createSelector(
+    getLoaderFeatureState,
+    state => state.showLoader
+);
+
+const defaultState: LoaderState = { showLoader: false };
+
+export const loaderReducer = createReducer<LoaderState>(
+    defaultState,
     on(actions.showLoader, state => {
         return {
             ...state,

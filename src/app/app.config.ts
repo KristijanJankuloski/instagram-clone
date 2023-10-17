@@ -9,18 +9,22 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { provideStore } from '@ngrx/store';
 import { loaderReducer } from './core/state/reducers/loader.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { photosReducer } from './features/photos/state/photo.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { PhotoEffects } from './features/photos/state/photo.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
     importProvidersFrom(HttpClientModule, MatSnackBarModule),
-    provideStore({ loader: loaderReducer }),
+    provideStore({ loader: loaderReducer, photos: photosReducer }),
+    provideEffects([PhotoEffects]),
     provideStoreDevtools({ name: "Ig Demo Devtools", maxAge: 25, logOnly: !isDevMode() }),
     {
         provide: HTTP_INTERCEPTORS,
         useClass: LoadingInterceptor,
         multi: true
-    },
+    }
 ]
 };
