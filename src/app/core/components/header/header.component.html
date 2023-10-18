@@ -15,6 +15,10 @@
             <button mat-button routerLink="/albums"><mat-icon>book</mat-icon> Albums</button>
         </nav>
         <span class="spacer"></span>
-        <button mat-icon-button><mat-icon>person</mat-icon></button>
+        <button mat-flat-button *ngIf="user$ | async as user; else loginBtn" routerLink="user"><mat-icon>person</mat-icon>{{ user.name }}</button>
     </mat-toolbar>
 </header>
+
+<ng-template #loginBtn>
+    <button mat-icon-button routerLink="login"><mat-icon>person</mat-icon></button>
+</ng-template>

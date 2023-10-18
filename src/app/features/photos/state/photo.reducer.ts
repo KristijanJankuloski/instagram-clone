@@ -4,12 +4,12 @@ import { PhotoModel } from 'src/app/core/models/photo.model';
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 
 export interface State extends app.State {
-    photos: PhotoState
+    photos: PhotoState;
 }
 
 export interface PhotoState {
-    allPhotos: PhotoModel[],
-    photoDetails: PhotoModel
+    allPhotos: PhotoModel[];
+    photoDetails: PhotoModel;
 }
 
 const getPhotoFeatureState = createFeatureSelector<PhotoState>('photos');
@@ -28,6 +28,12 @@ export const photosReducer = createReducer<PhotoState>(
         return {
             ...state,
             allPhotos: action.allPhotos
+        }
+    }),
+    on(actions.loadByIdSuccess, (state, action) => {
+        return {
+            ...state,
+            photoDetails: action.photo
         }
     })
 );

@@ -1,12 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PhotosService } from 'src/app/core/services/photos.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { LoadingSpinnerService } from 'src/app/core/services/loading-spinner.service';
+import { Store } from '@ngrx/store';
+import { State, getCurrentPhotoDetails } from '../state/photo.reducer';
+import { getShowLoaderState } from 'src/app/core/state/reducers/loader.reducer';
+import * as PhotoActions from '../state/photo.actions';
 
 @Component({
   selector: 'app-photo-details',
@@ -17,13 +19,17 @@ import { LoadingSpinnerService } from 'src/app/core/services/loading-spinner.ser
 })
 export class PhotoDetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private photoService = inject(PhotosService);
-  isLoading$ = inject(LoadingSpinnerService).isLoading$;
-  photoDetails$ = this.photoService.photoDetails$;
+  private store = inject(Store<State>);
+
+  isLoading$ = this.store.select(getShowLoaderState);
+  photoDetails$ = this.store.select(getCurrentPhotoDetails);
 
   ngOnInit(): void {
-    let photoId = this.route.snapshot.params.id;
-    this.photoService.getPhotoById(photoId);
+    let photoId = +this.route.snapshot.params.id;
+    if(photoId === 0 || isNaN(photoId)){
+      return;
+    }
+    this.store.dispatch(PhotoActions.loadById({id: photoId}));
   }
 
 }

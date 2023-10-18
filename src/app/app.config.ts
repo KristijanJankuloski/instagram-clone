@@ -12,14 +12,16 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { photosReducer } from './features/photos/state/photo.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { PhotoEffects } from './features/photos/state/photo.effect';
+import { UserEffects } from './features/user/state/user.effects';
+import { userReducer } from './features/user/state/user.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
     importProvidersFrom(HttpClientModule, MatSnackBarModule),
-    provideStore({ loader: loaderReducer, photos: photosReducer }),
-    provideEffects([PhotoEffects]),
+    provideStore({ loader: loaderReducer, photos: photosReducer, user: userReducer }),
+    provideEffects([PhotoEffects, UserEffects]),
     provideStoreDevtools({ name: "Ig Demo Devtools", maxAge: 25, logOnly: !isDevMode() }),
     {
         provide: HTTP_INTERCEPTORS,

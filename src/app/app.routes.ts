@@ -3,6 +3,10 @@ import { HomeComponent } from './core/components/home/home.component';
 
 export const routes: Routes = [
         { path: 'home', component: HomeComponent },
+        { path: 'login', loadComponent: () => 
+                import('./features/user/login/login.component')
+                .then(c => c.LoginComponent) 
+        },
         {path: 'photos', children: [
                 { path: '', loadComponent: () => 
                         import('./features/photos/photo-list/photo-list.component')

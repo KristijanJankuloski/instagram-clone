@@ -27,4 +27,13 @@ export class PhotoEffects {
             ))
         )
     });
+
+    loadPhotoById = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(actions.loadById),
+            mergeMap(value => this.photoService.getPhotoById(value.id).pipe(
+                map(photo => actions.loadByIdSuccess({photo}))
+            ))
+        )
+    });
 }
