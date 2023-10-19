@@ -1,14 +1,23 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, mergeMap } from "rxjs/operators";
+import { catchError, map, mergeMap, switchMap } from "rxjs/operators";
 import { PhotoApiService } from "src/app/core/services/api/photo-api.service";
 import *  as actions from "./photo.actions";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { snackBarError, snackBarInfo } from "src/app/config/snack-bar.config";
+import { of } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PhotoEffects {
-    constructor(private actions$: Actions, private photoService: PhotoApiService){}
+    constructor(
+        private actions$: Actions, 
+        private photoService: PhotoApiService, 
+        private snackBar: MatSnackBar, 
+        private router: Router
+        ){}
 
     loadPhotos$ = createEffect(() => {
         return this.actions$.pipe(
@@ -28,11 +37,32 @@ export class PhotoEffects {
         )
     });
 
-    loadPhotoById = createEffect(() => {
+    loadPhotoById$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(actions.loadById),
             mergeMap(value => this.photoService.getPhotoById(value.id).pipe(
-                map(photo => actions.loadByIdSuccess({photo}))
+                map(photo => actions.loadByIdSuccess({photo})),
+                catchError(err => {
+                    this.snackBar.open("Error while getting photo", "Close", snackBarError);
+                    this.router.navigate(['/not-found']);
+                    return of(err);
+                })
+            ))
+        )
+    });
+
+    editPhoto$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(actions.editPhoto),
+            mergeMap(value => this.photoService.updatePhoto(value.photo).pipe(
+                map(_ => {
+                    this.snackBar.open("Photo updated", "Close", snackBarInfo);
+                    return actions.editPhotoSuccess({photo: value.photo});
+                }),
+                catchError(err => {
+                    this.snackBar.open("Error while updating photo", "Close", snackBarError);
+                    return of(err);
+                })
             ))
         )
     });

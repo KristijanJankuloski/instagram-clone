@@ -29,7 +29,7 @@ export class PhotoApiService {
   }
 
   updatePhoto(photo: PhotoModel) {
-    return this.http.put(`${environment.apiBaseUrl}/photos/${photo.id}`, photo);
+    return this.http.patch(`${environment.apiBaseUrl}/photos/${photo.id}`, photo);
   }
 
   postPhoto(photo: PhotoModel) {

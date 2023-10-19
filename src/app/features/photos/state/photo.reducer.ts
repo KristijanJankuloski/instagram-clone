@@ -10,6 +10,7 @@ export interface State extends app.State {
 export interface PhotoState {
     allPhotos: PhotoModel[];
     photoDetails: PhotoModel;
+    lastError?: string;
 }
 
 const getPhotoFeatureState = createFeatureSelector<PhotoState>('photos');
@@ -27,13 +28,29 @@ export const photosReducer = createReducer<PhotoState>(
     on(actions.loadAllPhotosSuccess, (state, action) => {
         return {
             ...state,
-            allPhotos: action.allPhotos
+            allPhotos: action.allPhotos,
+            lastError: null
         }
     }),
     on(actions.loadByIdSuccess, (state, action) => {
         return {
             ...state,
-            photoDetails: action.photo
+            photoDetails: action.photo,
+            lastError: null
+        }
+    }),
+    on(actions.loadAllPhotosError, (state, action) => {
+        return {
+            ...state,
+            lastError: action.error
+        }
+    }),
+    on(actions.editPhotoSuccess, (state, action) => {
+        return {
+            ...state,
+            allPhotos: state.allPhotos.map(p => p.id === action.photo.id? action.photo: p),
+            photoDetails: action.photo,
+            lastError: null
         }
     })
 );

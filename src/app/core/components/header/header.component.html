@@ -15,7 +15,13 @@
             <button mat-button routerLink="/albums"><mat-icon>book</mat-icon> Albums</button>
         </nav>
         <span class="spacer"></span>
-        <button mat-flat-button *ngIf="user$ | async as user; else loginBtn" routerLink="user"><mat-icon>person</mat-icon>{{ user.name }}</button>
+        <div *ngIf="user$ | async as user; else loginBtn">
+            <button mat-flat-button color="primary" [matMenuTriggerFor]="profileMenu"><mat-icon>person</mat-icon>{{ user.name }}</button>
+            <mat-menu #profileMenu="matMenu">
+                <button mat-menu-item>Profile</button>
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
+        </div>
     </mat-toolbar>
 </header>
 

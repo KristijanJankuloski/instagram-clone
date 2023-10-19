@@ -3,19 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { State } from '../state/user.reducer';
-import * as UserActions from '../state/user.actions';
+import { UserActions } from '../state';
 import { LoginModel } from 'src/app/core/models/auth.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatIconModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   private store = inject(Store<State>);
   loginForm: FormGroup;
+  isPasswordVisible = false;
   
   ngOnInit(): void {
     this.initForm();

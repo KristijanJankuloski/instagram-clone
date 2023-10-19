@@ -1,4 +1,4 @@
-import { UserModel } from 'src/app/core/models/user.model';
+import { UserModel } from '../../../core/models/user.model';
 import * as app from '../../../core/state/app.state';
 import * as actions from './user.actions';
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';

@@ -14,6 +14,7 @@ import { provideEffects } from '@ngrx/effects';
 import { PhotoEffects } from './features/photos/state/photo.effect';
 import { UserEffects } from './features/user/state/user.effects';
 import { userReducer } from './features/user/state/user.reducer';
+import { HIDE_LOADER, SHOW_LOADER } from './core/state/actions/loader.actions';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule, MatSnackBarModule),
     provideStore({ loader: loaderReducer, photos: photosReducer, user: userReducer }),
     provideEffects([PhotoEffects, UserEffects]),
-    provideStoreDevtools({ name: "Ig Demo Devtools", maxAge: 25, logOnly: !isDevMode() }),
+    provideStoreDevtools({ name: "Ig Demo Devtools", maxAge: 25, logOnly: !isDevMode(), actionsBlocklist: [SHOW_LOADER, HIDE_LOADER] }),
     {
         provide: HTTP_INTERCEPTORS,
         useClass: LoadingInterceptor,

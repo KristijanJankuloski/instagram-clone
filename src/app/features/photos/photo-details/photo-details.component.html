@@ -1,5 +1,5 @@
 <div class="container">
-    <div *ngIf="photoDetails$ | async as details; else noPhoto">
+    <div *ngIf="(photoDetails$ | async).photoDetails as details; else noPhoto">
         <mat-card class="photo-card">
             <img mat-card-image [src]="details.url" />
             <mat-card-content>

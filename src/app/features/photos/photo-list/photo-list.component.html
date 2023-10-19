@@ -1,12 +1,12 @@
-<div *ngIf="allPhotos" class="container">
+<div *ngIf="(photos$ | async).photos as photos" class="container">
     <div class="grid-list">
-        <div *ngFor="let photo of listToDisplay" class="grid-tile">
+        <div *ngFor="let photo of (photos | paginatePhotos : pageIndex : pageSize)" class="grid-tile">
             <app-photo [@openClose] [photo]="photo" />
         </div>
     </div>
     <mat-paginator 
         (page)="pageEvent($event)" 
-        [length]="allPhotos.length" 
+        [length]="photos.length" 
         [pageSize]="pageSize" 
         [pageSizeOptions]="[5, 10, 25, 50]" 
         ariaLabel="select pages"></mat-paginator>

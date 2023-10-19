@@ -5,8 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { State } from 'src/app/features/user/state/user.reducer';
-import { getCurrentUser } from 'src/app/features/user/state/user.reducer';
+import { State } from '../../../features/user/state/user.reducer';
+import { getCurrentUser } from '../../../features/user/state/user.reducer';
+import * as UserActions from '../../../features/user/state/user.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -19,4 +20,8 @@ import { Store } from '@ngrx/store';
 export class HeaderComponent {
   private store = inject(Store<State>);
   user$ = this.store.select(getCurrentUser);
+
+  logout() {
+    this.store.dispatch(UserActions.logoutUser());
+  }
 }
