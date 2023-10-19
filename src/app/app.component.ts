@@ -12,5 +12,5 @@ import { LoadingSpinnerComponent } from './core/components/loading-spinner/loadi
     imports: [CommonModule, RouterOutlet, HeaderComponent, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
 })
 export class AppComponent {
-  title = 'instagram-clone';
+  title = 'micro-instagram';
 }
