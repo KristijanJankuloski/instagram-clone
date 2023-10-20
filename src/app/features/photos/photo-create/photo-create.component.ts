@@ -11,8 +11,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PhotoCreateModel } from 'src/app/core/models/photo.model';
 import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
-import { State } from '../../albums/state/album.reducer';
 import { AlbumSelectors, AlbumActions } from '../../albums/state';
+import { PhotoActions, PhotoSelectors } from '../state';
 
 @Component({
   selector: 'app-photo-create',
@@ -33,7 +33,8 @@ import { AlbumSelectors, AlbumActions } from '../../albums/state';
 })
 export class PhotoCreateComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
-  private albumStore = inject(Store<State>);
+  private photoStore = inject(Store<PhotoSelectors.State>);
+  private albumStore = inject(Store<AlbumSelectors.State>);
   albums$ = this.albumStore.select(AlbumSelectors.getAllCurrentAlbums);
 
   createFrom: FormGroup;
@@ -75,5 +76,7 @@ export class PhotoCreateComponent implements OnInit {
       albumId: this.createFrom.value.albumId,
       image: this.image.file
     }
+    // The create photo will return an error because the server cannot accept this type of request since it is just dummy data
+    this.photoStore.dispatch(PhotoActions.createPhoto({photo:request}));
   }
 }

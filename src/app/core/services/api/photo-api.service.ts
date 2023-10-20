@@ -33,6 +33,9 @@ export class PhotoApiService {
   }
 
   postPhoto(photo: PhotoCreateModel) {
+    // UNCOMMENT FOR DUMMY RESPONSE
+    // return this.http.post(`${environment.apiBaseUrl}/photos`, { id:5001, albumId: 51, title: "Test tile", url: "https://via.placeholder.com/600/92c952", thumbnailUrl: "https://via.placeholder.com/150/771796"});
+
     const request = new FormData();
     request.append("title", photo.title);
     request.append("albumId", photo.albumId.toString())
