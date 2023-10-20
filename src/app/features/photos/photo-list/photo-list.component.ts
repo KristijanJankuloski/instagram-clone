@@ -4,12 +4,10 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PhotoComponent } from '../photo/photo.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { State } from '../state/photo.reducer';
-import { PhotoActions } from '../state';
 import { PaginatePhotosPipe } from "../../../core/pipes/paginate-photos.pipe";
 
 @Component({
@@ -42,9 +40,7 @@ import { PaginatePhotosPipe } from "../../../core/pipes/paginate-photos.pipe";
     ]
 })
 export class PhotoListComponent {
-  private store = inject(Store<State>);
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
 
   photos$ = this.route.data;
   pageIndex = 0;
