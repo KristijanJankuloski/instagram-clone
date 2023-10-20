@@ -14,3 +14,9 @@
         padding: 4px;
     }
 }
+
+.side-art {
+    @media screen and (min-width: 600px) {
+        padding: 32px;
+    }
+}

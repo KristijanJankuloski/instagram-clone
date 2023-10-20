@@ -5,3 +5,9 @@ export interface PhotoModel {
     url: string;
     thumbnailUrl: string;
 }
+
+export interface PhotoCreateModel {
+    albumId: number;
+    title: number;
+    image: Blob;
+}

@@ -19,6 +19,7 @@
             <button mat-flat-button color="primary" [matMenuTriggerFor]="profileMenu"><mat-icon>person</mat-icon>{{ user.name }}</button>
             <mat-menu #profileMenu="matMenu">
                 <button mat-menu-item>Profile</button>
+                <button mat-menu-item routerLink="/photos/create">Upload</button>
                 <button mat-menu-item (click)="logout()">Logout</button>
             </mat-menu>
         </div>

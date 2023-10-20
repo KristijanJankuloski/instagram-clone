@@ -1,1 +1,34 @@
-<p>photo-create works!</p>
+<div class="container">
+    <form [formGroup]="createFrom" (ngSubmit)="submitForm()">
+        <mat-card class="upload-card">
+            <mat-card-header>
+                <mat-card-title>
+                    <h2>Upload photo</h2>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    create a new post by uploading a photo
+                </mat-card-subtitle>
+            </mat-card-header>
+            <img *ngIf="!!image" [src]="image.url" class="selected-image" />
+            <mat-card-content>
+                <div *ngIf="!image" class="dropzone" appFileDrag (fileEvent)="fileDragged($event)">
+                    <p>Drop your image here or <button mat-stroked-button color="primary" (click)="fileInput.click()">browse</button> files</p>
+                </div>
+                <mat-form-field class="full-width title-field">
+                    <mat-label>Title</mat-label>
+                    <textarea matInput formControlName="title"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Select an album</mat-label>
+                    <mat-select formControlName="albumId">
+                      <mat-option *ngFor="let album of albums$ | async" [value]="album.id">{{ album.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                <input type="file" #fileInput hidden="true" onclick="this.value=null" (change)="fileInputChange($event)"/>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="accent">Post</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

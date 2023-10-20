@@ -1,1 +1,5 @@
-<p>albums-list works!</p>
+<div class="container">
+    <div class="grid-list">
+        <app-album-card *ngFor="let album of (albums$ | async).albums" [album]="album" class="album-item"></app-album-card>
+    </div>
+</div>

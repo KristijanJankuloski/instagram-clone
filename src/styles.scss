@@ -97,7 +97,7 @@ $custom-warn: (
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $instagram-clone-primary: mat.define-palette($custom-primary);
-$instagram-clone-accent: mat.define-palette($custom-accent, A200, A100, A400);
+$instagram-clone-accent: mat.define-palette($custom-accent);
 
 // The warn palette is optional (defaults to red).
 $instagram-clone-warn: mat.define-palette($custom-warn);
@@ -126,6 +126,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-top: 16px;
   padding-right: 16px;
   padding-left: 16px;
+  padding-bottom: 32px;
   margin-right: auto;
   margin-left: auto;
 }

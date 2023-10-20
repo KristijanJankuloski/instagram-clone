@@ -5,6 +5,6 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-        <button mat-raised-button [routerLink]="['photos']" [queryParams]="{album: album.id}">Open</button>
+        <button mat-flat-button color="primary" [routerLink]="['/photos']" [queryParams]="{album: album.id}">Open</button>
     </mat-card-actions>
 </mat-card>

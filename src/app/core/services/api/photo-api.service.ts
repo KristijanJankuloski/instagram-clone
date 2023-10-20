@@ -35,4 +35,7 @@ export class PhotoApiService {
   postPhoto(photo: PhotoModel) {
     return this.http.post(`${environment.apiBaseUrl}/photos`, photo);
   }
+  deletePhoto(id: number) {
+    return this.http.delete(`${environment.apiBaseUrl}/photos/${id}`);
+  }
 }

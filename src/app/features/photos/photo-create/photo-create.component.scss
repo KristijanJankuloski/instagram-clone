@@ -1,0 +1,38 @@
+.dropzone {
+    width: 560px;
+    height: 600px;
+    display: grid;
+    place-items: center;
+    background-color: #eee;
+    @media screen and (max-width: 600px) {
+        width: 100%;
+        height: 400px;
+    }
+
+    transition: all .3s ease;
+}
+
+.container {
+    display: grid;
+    place-items: center;
+}
+
+.upload-card {
+    max-width: 600px;
+}
+
+.selected-image {
+    max-width: 560px;
+    @media screen and (max-width: 600px) {
+        max-width: 100%;
+    }
+}
+
+.title-field {
+    margin-top: 12px;
+}
+
+.is-dragged-over {
+    background-color: #cfcfcf;
+    cursor: grabbing;
+}

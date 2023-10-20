@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Store } from '@ngrx/store';
-import { State, getCurrentAllPhotos } from '../state/photo.reducer';
+import { State } from '../state/photo.reducer';
 import { PhotoActions } from '../state';
 import { PaginatePhotosPipe } from "../../../core/pipes/paginate-photos.pipe";
 
@@ -19,21 +19,27 @@ import { PaginatePhotosPipe } from "../../../core/pipes/paginate-photos.pipe";
     styleUrls: ['./photo-list.component.scss'],
     animations: [
         trigger('openClose', [
-            state('open', style({
-                opacity: 1
-            })),
-            state('closed', style({
-                opacity: 0
-            })),
-            transition('open => closed', [
-                animate('1s')
-            ]),
-            transition('closed => open', [
-                animate('0.5s')
+            transition(':enter', [
+              style({
+                opacity: 0,
+                transform: 'translateY(50%)'
+              }),
+              animate('400ms ease-in', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+              }))
             ])
         ])
     ],
-    imports: [CommonModule, PhotoComponent, ScrollingModule, MatButtonModule, MatPaginatorModule, RouterLink, PaginatePhotosPipe]
+    imports: [
+      CommonModule, 
+      PhotoComponent, 
+      ScrollingModule, 
+      MatButtonModule, 
+      MatPaginatorModule, 
+      RouterLink, 
+      PaginatePhotosPipe
+    ]
 })
 export class PhotoListComponent implements OnInit, OnDestroy {
   private store = inject(Store<State>);

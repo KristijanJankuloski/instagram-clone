@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, mergeMap, switchMap } from "rxjs/operators";
+import { catchError, map, mergeMap, exhaustMap } from "rxjs/operators";
 import { PhotoApiService } from "src/app/core/services/api/photo-api.service";
 import *  as actions from "./photo.actions";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -57,6 +57,7 @@ export class PhotoEffects {
             mergeMap(value => this.photoService.updatePhoto(value.photo).pipe(
                 map(_ => {
                     this.snackBar.open("Photo updated", "Close", snackBarInfo);
+                    this.router.navigate(['/photos']);
                     return actions.editPhotoSuccess({photo: value.photo});
                 }),
                 catchError(err => {
@@ -66,4 +67,21 @@ export class PhotoEffects {
             ))
         )
     });
+
+    deletePhoto$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(actions.deletePhotoById),
+            exhaustMap(value => this.photoService.deletePhoto(value.photoId).pipe(
+                map(_ => {
+                    this.snackBar.open("Photo deleted", "Close", snackBarInfo);
+                    this.router.navigate(['/photos']);
+                    return actions.loadByIdSuccess({photo:null});
+                }),
+                catchError(err => {
+                    this.snackBar.open("Error while deleting photo", "Close", snackBarError);
+                    return of(err);
+                })
+            ))
+        );
+    })
 }

@@ -10,6 +10,7 @@ const GET_BY_ID_SUCCESS = "[Photo] Get bt Id success";
 const GET_BY_ID_ERROR = "[Photo] Get bt Id error";
 const EDIT_PHOTO = "[Photo] Edit";
 const EDIT_PHOTO_SUCCESS = "[Photo Api] Edit success";
+const DELETE_PHOTO = "[Photo] Delete";
 
 export const loadAllPhotos = createAction(GET_ALL_PHOTOS);
 export const loadAllPhotosSuccess = createAction(GET_ALL_PHOTOS_SUCCESS, props<{allPhotos: PhotoModel[]}>());
@@ -20,3 +21,4 @@ export const loadByIdSuccess = createAction(GET_BY_ID_SUCCESS, props<{photo: Pho
 export const loadByIdError = createAction(GET_BY_ID_ERROR, props<{error: string}>());
 export const editPhoto = createAction(EDIT_PHOTO, props<{photo: PhotoModel}>());
 export const editPhotoSuccess = createAction(EDIT_PHOTO_SUCCESS, props<{photo: PhotoModel}>());
+export const deletePhotoById = createAction(DELETE_PHOTO, props<{photoId: number}>())
