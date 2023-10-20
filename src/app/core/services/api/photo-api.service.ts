@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { PhotoModel } from '../../models/photo.model';
+import { PhotoCreateModel, PhotoModel } from '../../models/photo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +32,12 @@ export class PhotoApiService {
     return this.http.patch(`${environment.apiBaseUrl}/photos/${photo.id}`, photo);
   }
 
-  postPhoto(photo: PhotoModel) {
-    return this.http.post(`${environment.apiBaseUrl}/photos`, photo);
+  postPhoto(photo: PhotoCreateModel) {
+    const request = new FormData();
+    request.append("title", photo.title);
+    request.append("albumId", photo.albumId.toString())
+    request.append("image", photo.image);
+    return this.http.post(`${environment.apiBaseUrl}/photos`, request);
   }
   deletePhoto(id: number) {
     return this.http.delete(`${environment.apiBaseUrl}/photos/${id}`);

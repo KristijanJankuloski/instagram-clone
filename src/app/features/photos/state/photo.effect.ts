@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, mergeMap, exhaustMap } from "rxjs/operators";
+import { catchError, map, mergeMap, exhaustMap, tap } from "rxjs/operators";
 import { PhotoApiService } from "src/app/core/services/api/photo-api.service";
 import *  as actions from "./photo.actions";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -50,6 +50,22 @@ export class PhotoEffects {
             ))
         )
     });
+
+    createPhoto$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(actions.createPhoto),
+            exhaustMap(value => this.photoService.postPhoto(value.photo).pipe(
+                tap(_ => {
+                    this.snackBar.open("Photo uploaded", "Close", snackBarInfo);
+                    this.router.navigate(['/photos']);
+                }),
+                catchError(err => {
+                    this.snackBar.open("Cannot upload photo", "Close", snackBarError);
+                    return of(err);
+                })
+            ))
+        )
+    })
 
     editPhoto$ = createEffect(() => {
         return this.actions$.pipe(

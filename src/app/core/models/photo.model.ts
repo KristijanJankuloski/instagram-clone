@@ -8,6 +8,6 @@ export interface PhotoModel {
 
 export interface PhotoCreateModel {
     albumId: number;
-    title: number;
+    title: string;
     image: Blob;
 }
