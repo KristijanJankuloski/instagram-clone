@@ -41,37 +41,14 @@ import { PaginatePhotosPipe } from "../../../core/pipes/paginate-photos.pipe";
       PaginatePhotosPipe
     ]
 })
-export class PhotoListComponent implements OnInit, OnDestroy {
+export class PhotoListComponent {
   private store = inject(Store<State>);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   photos$ = this.route.data;
-  paramSub = new Subscription();
   pageIndex = 0;
   pageSize = 10;
-
-  ngOnInit(): void {
-    this.paramSub = this.route.queryParamMap.subscribe({
-      next: params => {
-        let albumId = +params.get('album');
-        this.fetchDataFromStore(albumId);
-      }
-    });
-  }
-  
-  fetchDataFromStore(albumId = 0) {
-    if(!!albumId && (isNaN(albumId) || albumId <= 0))
-      this.router.navigate(['/not-found']);
-    else if(albumId > 0)
-      this.store.dispatch(PhotoActions.loadByAlbumId({albumId}))
-    else
-      this.store.dispatch(PhotoActions.loadAllPhotos());
-  }
-  
-  ngOnDestroy(): void {
-    this.paramSub.unsubscribe();
-  }
   
   pageEvent(event: PageEvent){
     this.pageIndex = event.pageIndex;
