@@ -15,4 +15,10 @@ export class AlbumApiService {
       map(value => value as AlbumModel[])
     );
   }
+
+  getById(id: number) {
+    return this.http.get(`${environment.apiBaseUrl}/albums/${id}`).pipe(
+      map(value => value as AlbumModel)
+    );
+  }
 }

@@ -9,14 +9,17 @@ export interface State extends app.State {
 
 export interface AlbumState {
     albums: AlbumModel[],
+    currentAlbum: AlbumModel,
     lastError?: string
 }
 
 const getAlbumFeatureState = createFeatureSelector<AlbumState>('albums');
 export const getAllCurrentAlbums = createSelector(getAlbumFeatureState, state => state.albums);
+export const getLastAlbum = createSelector(getAlbumFeatureState, state => state.currentAlbum);
 
 const defaultState: AlbumState = {
     albums: [],
+    currentAlbum: null,
     lastError: null
 }
 
@@ -34,6 +37,12 @@ export const albumReducer = createReducer<AlbumState>(
             ...state,
             albums: [],
             lastError: action.error
+        }
+    }),
+    on(actions.loadByIdSuccess, (state, action) => {
+        return {
+            ...state,
+            currentAlbum: action.album
         }
     })
 );

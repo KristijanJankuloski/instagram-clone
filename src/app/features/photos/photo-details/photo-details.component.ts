@@ -7,12 +7,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { State } from '../state/photo.reducer';
 import { UserSelectors } from '../../user/state';
 import { getShowLoaderState } from 'src/app/core/state/reducers/loader.reducer';
 import { PhotoDeleteDialogComponent } from '../photo-delete-dialog/photo-delete-dialog.component';
 import { PhotoModel } from 'src/app/core/models/photo.model';
-import { PhotoActions } from '../state';
+import { PhotoActions, PhotoSelectors } from '../state';
+import { AlbumActions, AlbumSelectors } from '../../albums/state';
+import { Observable } from 'rxjs';
+import { AlbumModel } from 'src/app/core/models/album.model';
 
 @Component({
   selector: 'app-photo-details',
@@ -23,15 +25,24 @@ import { PhotoActions } from '../state';
 })
 export class PhotoDetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private store = inject(Store<State>);
+  private store = inject(Store<PhotoSelectors.State>);
   private userStore = inject(Store<UserSelectors.State>);
+  private albumStore = inject(Store<AlbumSelectors.State>);
   private matDialog = inject(MatDialog);
 
   isLoading$ = this.store.select(getShowLoaderState);
   user$ = this.userStore.select(UserSelectors.getCurrentUser);
   photoDetails$ = this.route.data;
-
+  fetchedAlbum = false;
+  
   ngOnInit(): void {
+  }
+
+  album$(id:number): Observable<AlbumModel> {
+    if(!this.fetchedAlbum)
+      this.albumStore.dispatch(AlbumActions.loadById({id}));
+    this.fetchedAlbum = true;
+    return this.albumStore.select(AlbumSelectors.getLastAlbum);
   }
 
   openDeleteDialog(photo: PhotoModel) {

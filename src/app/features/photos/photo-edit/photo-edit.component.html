@@ -1,5 +1,5 @@
 <div *ngIf="photoDetails$ | async as photoDetails; else noEdit" class="container">
-    <app-photo-edit-form [photoDetails]="photoDetails" (onFromSubmit)="submitEditForm($event)"></app-photo-edit-form>
+    <app-photo-edit-form [photoDetails]="photoDetails" [albums]="availableAlbums$ | async" (onFromSubmit)="submitEditForm($event)"></app-photo-edit-form>
 </div>
 
 <ng-template #noEdit>

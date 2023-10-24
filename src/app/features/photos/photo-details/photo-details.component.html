@@ -1,31 +1,45 @@
 <div class="container">
-    <div *ngIf="(photoDetails$ | async).photoDetails as details; else noPhoto">
-        <mat-card class="photo-card">
-            <img mat-card-image [src]="details.url" />
-            <mat-card-content>
-                <p>{{ details.title }}</p>
-            </mat-card-content>
-            <mat-card-actions class="actions">
-                <button mat-raised-button color="primary" [routerLink]="['/photos']" [queryParams]="{album: details.albumId}">View album</button>
-                <span class="spacer"></span>
-                <button  *ngIf="user$ | async" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item [routerLink]="['/photos', 'edit']">
-                      <mat-icon>edit</mat-icon>
-                      <span>Edit</span>
-                    </button>
-                    <button mat-menu-item (click)="openDeleteDialog(details)">
-                      <mat-icon color="warn">delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
-                  </mat-menu>
-            </mat-card-actions>
-        </mat-card>
-    </div>
+  <div *ngIf="(photoDetails$ | async).photoDetails as details; else noPhoto">
+    <mat-card class="photo-card">
+      <mat-card-header *ngIf="album$(details.albumId) | async as album">
+        <mat-card-subtitle>Album</mat-card-subtitle>
+        <mat-card-title>{{ album.title }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="details.url" />
+      <mat-card-content>
+        <p>{{ details.title }}</p>
+      </mat-card-content>
+      <mat-card-actions class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/photos']"
+          [queryParams]="{ album: details.albumId }">
+          View album
+        </button>
+        <span class="spacer"></span>
+        <button
+          *ngIf="user$ | async"
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item [routerLink]="['/photos', 'edit']">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="openDeleteDialog(details)">
+            <mat-icon color="warn">delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
 
 <ng-template #noPhoto>
-    <h2 *ngIf="!(isLoading$ | async)">No card to show</h2>
+  <h2 *ngIf="!(isLoading$ | async)">No card to show</h2>
 </ng-template>

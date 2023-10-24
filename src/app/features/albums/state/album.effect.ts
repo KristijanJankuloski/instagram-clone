@@ -32,4 +32,13 @@ export class AlbumEffects {
             ))
         )
     })
+
+    loadById$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(actions.loadById),
+            mergeMap((req) => this.albumService.getById(req.id).pipe(
+                map(album => actions.loadByIdSuccess({album}))
+            ))
+        )
+    });
 }

@@ -3,13 +3,23 @@
         <mat-card-header>
             <mat-card-title><h3>Edit a photo</h3></mat-card-title>
         </mat-card-header>
-        <img mat-card-image [src]="photoDetails.url" />
+        <img mat-card-image [src]="uploadImage?.url? uploadImage.url : photoDetails.url" />
         <br>
         <mat-card-content>
             <mat-form-field class="full-width">
                 <mat-label>Title</mat-label>
                 <textarea matInput rows="3" formControlName="title"></textarea>
-              </mat-form-field>
+            </mat-form-field>
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Select an album</mat-label>
+                    <mat-select formControlName="albumId">
+                      <mat-option *ngFor="let album of albums" [value]="album.id">{{ album.title }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button type="button" color="primary" (click)="fileInput.click()">Change photo</button>
+            </div>
+            <input type="file" #fileInput hidden="true" onclick="this.value=null" (change)="fileInputChange($event)"/>
         </mat-card-content>
         <mat-card-actions>
             <button type="submit" mat-raised-button color="primary">Save</button>

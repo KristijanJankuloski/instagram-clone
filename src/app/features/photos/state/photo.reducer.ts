@@ -20,7 +20,8 @@ export const getCurrentPhotoDetails = createSelector(getPhotoFeatureState, state
 
 const defaultState: PhotoState = {
     allPhotos: [],
-    photoDetails: null
+    photoDetails: null,
+    lastError: null,
 }
 
 export const photosReducer = createReducer<PhotoState>(

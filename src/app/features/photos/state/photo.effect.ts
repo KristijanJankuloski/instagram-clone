@@ -73,7 +73,7 @@ export class PhotoEffects {
             mergeMap(value => this.photoService.updatePhoto(value.photo).pipe(
                 map(_ => {
                     this.snackBar.open("Photo updated", "Close", snackBarInfo);
-                    this.router.navigate(['/photos']);
+                    this.router.navigate(['/photos', value.photo.id], { queryParams: {cache: true} });
                     return actions.editPhotoSuccess({photo: value.photo});
                 }),
                 catchError(err => {

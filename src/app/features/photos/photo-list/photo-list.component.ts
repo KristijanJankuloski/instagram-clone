@@ -1,13 +1,11 @@
-import { Component, OnInit, inject, OnDestroy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PhotoComponent } from '../photo/photo.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Store } from '@ngrx/store';
-import { State } from '../state/photo.reducer';
 import { PaginatePhotosPipe } from "../../../core/pipes/paginate-photos.pipe";
 
 @Component({
