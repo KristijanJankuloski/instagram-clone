@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "instagram-clone:build:production"
+              "buildTarget": "instagram-clone:build:production"
             },
             "development": {
-              "browserTarget": "instagram-clone:build:development"
+              "buildTarget": "instagram-clone:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "instagram-clone:build"
+            "buildTarget": "instagram-clone:build"
           }
         },
         "test": {
